@@ -1,9 +1,10 @@
-import { Application } from "probot"; // eslint-disable-line no-unused-vars
-import { IssuesGetResponseData } from "@octokit/types";
+import { Application } from "probot";
+import type { IssuesGetResponseData } from "@octokit/types";
 
-export = (app: Application) => {
-  app.on("issues.labeled", async ({ octokit, ...context }) => {
+export = ({ app }: { app: Application }) => {
+  app.on("issues.labeled", async (context) => {
     const issue = context.issue();
+    const octokit = context.octokit;
 
     async function closeIssue() {
       await octokit.issues.update(context.issue({ state: "closed" }));
