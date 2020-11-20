@@ -4,7 +4,7 @@
   "private": true,
   "description": "GitHub bot that comments on issues and PRs that ignore or don't follow a template",
   "author": "Mohammed Anas",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
   "repository": "https://github.com/mhmdanas/template-bot.git",
   "homepage": "https://github.com/mhmdanas/template-bot",
   "bugs": "https://github.com/mhmdanas/template-bot/issues",
@@ -18,7 +18,7 @@
     "start": "probot run ./lib/index.js",
     "test": "jest"
   },
- "dependencies": {
+  "dependencies": {
     "probot": "^10.9.5"
   },
   "devDependencies": {
