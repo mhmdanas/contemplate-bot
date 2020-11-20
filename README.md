@@ -1,6 +1,6 @@
 # contemplate-bot
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that GitHub bot that comments on issues and PRs that ignore or don&#x27;t follow a contemplate
+> A GitHub App built with [Probot](https://github.com/probot/probot) that comments on issues and PRs that ignore or don&#x27;t follow a template
 
 ## Setup
 
