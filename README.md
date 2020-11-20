@@ -1,6 +1,6 @@
-# template-bot
+# contemplate-bot
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that GitHub bot that comments on issues and PRs that ignore or don&#x27;t follow a template
+> A GitHub App built with [Probot](https://github.com/probot/probot) that GitHub bot that comments on issues and PRs that ignore or don&#x27;t follow a contemplate
 
 ## Setup
 
@@ -19,21 +19,21 @@ npm run start
 
 ```sh
 # 1. Build container
-docker build -t template-bot .
+docker build -t contemplate-bot .
 
 # 2. Start container
-docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> template-bot
+docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> contemplate-bot
 ```
 
 ## Contributing
 
-If you have suggestions for how template-bot could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+If you have suggestions for how contemplate-bot could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
 For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
 ## License
 
-template-bot is free software: you can redistribute it and/or modify
+contemplate-bot is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.

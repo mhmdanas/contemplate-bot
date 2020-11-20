@@ -1,13 +1,13 @@
 {
-  "name": "template-bot",
+  "name": "contemplate-bot",
   "version": "1.0.0",
   "private": true,
   "description": "GitHub bot that comments on issues and PRs that ignore or don't follow a template",
   "author": "Mohammed Anas",
   "license": "AGPL-3.0-or-later",
-  "repository": "https://github.com/mhmdanas/template-bot.git",
-  "homepage": "https://github.com/mhmdanas/template-bot",
-  "bugs": "https://github.com/mhmdanas/template-bot/issues",
+  "repository": "https://github.com/mhmdanas/contemplate-bot.git",
+  "homepage": "https://github.com/mhmdanas/contemplate-bot",
+  "bugs": "https://github.com/mhmdanas/contemplate-bot/issues",
   "keywords": [
     "probot",
     "github",
