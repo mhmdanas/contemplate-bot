@@ -1,10 +1,22 @@
 import { Application } from "probot";
+import { schema, Config } from "./schema";
 import type { IssuesGetResponseData } from "@octokit/types";
 
 export = ({ app }: { app: Application }) => {
   app.on("issues.labeled", async (context) => {
     const issue = context.issue();
     const octokit = context.octokit;
+
+    const configYaml = context.config("contemplate.yml");
+
+    const { value, error } = schema.validate(configYaml);
+
+    if (error !== undefined) {
+      context.octokit.log.error(error.message);
+      return;
+    }
+
+    const config = value as Config;
 
     async function closeIssue() {
       await octokit.issues.update(context.issue({ state: "closed" }));
@@ -14,30 +26,33 @@ export = ({ app }: { app: Application }) => {
       return (await octokit.issues.get(issue)).data.user;
     }
 
-    const issueLabels = (await octokit.issues.listLabelsOnIssue(issue)).data;
-
-    const issueLabelNames = issueLabels.map((label) => label.name);
-
-    if (issueLabelNames.includes("doesn't-follow-template")) {
+    async function handleViolation(commentBody: string) {
       await closeIssue();
 
       const author = await getAuthor();
+      commentBody = commentBody.replace("{{authorLogin}}", author.login);
 
-      const issueComment = context.issue({
-        body: `Hi @${author.login}! Thank you for opening an issue! Unfortunately, it looks like you haven't followed the template or read its instructions carefully. Please read the template again and do what it says; it will ensure both you and team members have a far easier time discussing the issue!`,
-      });
+      const { owner, repo } = context.repo();
+      const templateChooserLink = `https://github.com/${owner}/${repo}/issues/new/choose`;
 
-      await octokit.issues.createComment(issueComment);
-    } else if (issueLabelNames.includes("template-ignored")) {
-      await closeIssue();
+      commentBody = commentBody.replace(
+        "{{templateChooserLink}}",
+        templateChooserLink
+      );
 
-      const author = await getAuthor();
+      const comment = context.issue({ body: commentBody });
 
-      const issueComment = context.issue({
-        body: `Hi @${author.login}. Thank you for opening an issue! Please edit your issue and follow the template provided here [TODO] and a team member will get in touch with you.`,
-      });
+      await octokit.issues.createComment(comment);
+    }
 
-      await octokit.issues.createComment(issueComment);
+    switch (context.payload.label?.name) {
+      case config.doesntFollowTemplateLabel:
+        await handleViolation(config.doesntFollowTemplateCommentBody);
+        break;
+
+      case config.templateIgnoredLabel:
+        await handleViolation(config.templateIgnoredCommentBody);
+        break;
     }
   });
 };
