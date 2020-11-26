@@ -8,7 +8,7 @@ export interface Config {
   doesntFollowTemplateCommentBody: string;
 }
 
-// Credit for comment body defaults goes to https://github.com/opusforlife.
+// Credit for comment body defaults goes to https://github.com/opusforlife2.
 export const schema = Joi.object<Config>({
   templateIgnoredLabel: Joi.string()
     .not("")
