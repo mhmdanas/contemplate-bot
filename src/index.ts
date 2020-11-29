@@ -1,6 +1,6 @@
-import { Application } from "probot";
-import { schema, Config } from "./schema";
 import type { IssuesGetResponseData } from "@octokit/types";
+import { Application } from "probot";
+import { Config, schema } from "./schema";
 
 export = ({ app }: { app: Application }) => {
   app.on("issues.labeled", async (context) => {
